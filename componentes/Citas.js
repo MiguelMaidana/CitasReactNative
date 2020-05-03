@@ -1,16 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
-const Cita = ({item})=>{
+const Cita = ({item, eliminaPaciente})=>{
 
-    const dialogoEliminar =() =>{
-        console.log("eliminando...")
+    const dialogoEliminar =(id) =>{
+        console.log("eliminando...",id)
+        
+
+        eliminaPaciente(id)
+        
     }
 
     return (
         <View style={styles.cita}>
             <View>
-                <Text style={styles.label}>Paciente :</Text>
+                <Text style={styles.label}>Paciente mono:</Text>
                 <Text style={styles.texto}>{item.paciente}</Text>
             </View>
             <View>
@@ -22,7 +26,7 @@ const Cita = ({item})=>{
                 <Text style={styles.texto}>{item.sintomas}</Text>
             </View>
             <View>
-                <TouchableHighlight onPress={()=>dialogoEliminar()} style={styles.btnEliminar}>
+                <TouchableHighlight onPress={()=>dialogoEliminar(item.id)} style={styles.btnEliminar}>
                     <Text style={styles.textoEliminar}>Eliminar &times;</Text>
                 </TouchableHighlight>
             </View>
