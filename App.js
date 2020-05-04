@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Cita from "./componentes/Citas"
+import Formulario from "./componentes/Formulario"
 
 const App =() => {
 
@@ -24,13 +25,15 @@ const App =() => {
 
       <View style={styles.contenedor}>
         <Text style={styles.titulo}>Administrador de citas</Text>
+        <Formulario/>
         <Text style={styles.titulo}>{citas.length > 0 ? "Aministra tus citas" : "No hay citas, agrega una" }</Text>
+        
         <FlatList
-        data={citas}
-        renderItem ={({item})=>(
-         <Cita item={item} eliminaPaciente={eliminaPaciente} ></Cita>
-        )}
-        keyExtractor={cita =>cita.id}
+          data={citas}
+          renderItem ={({item})=>(
+          <Cita item={item} eliminaPaciente={eliminaPaciente} ></Cita>
+          )}
+          keyExtractor={cita =>cita.id}
         />
 
       </View>

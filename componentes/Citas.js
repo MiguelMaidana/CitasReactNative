@@ -14,7 +14,7 @@ const Cita = ({item, eliminaPaciente})=>{
     return (
         <View style={styles.cita}>
             <View>
-                <Text style={styles.label}>Paciente mono:</Text>
+                <Text style={styles.label}>Paciente:</Text>
                 <Text style={styles.texto}>{item.paciente}</Text>
             </View>
             <View>

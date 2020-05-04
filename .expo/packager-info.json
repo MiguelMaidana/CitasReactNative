@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 25667,
-  "expoServerNgrokUrl": "https://sn-nzi.anonymous.mono.exp.direct",
-  "packagerNgrokUrl": "https://packager.sn-nzi.anonymous.mono.exp.direct",
-  "ngrokPid": 25693,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
