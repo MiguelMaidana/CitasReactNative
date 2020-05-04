@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput,Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TextInput,Button, TouchableHighlight, Alert,ScrollView } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
@@ -51,13 +51,38 @@ const Formulario =()=>{
       // creamos nueva cita
 
     const   crearNuevaCita =()=>{
-        console.log("desde crear neuva cita")
+        //Validar
+
+        if(paciente.trim()=== "" || 
+        propietario.trim()==="" || 
+        telefono.trim()==="" || 
+        fecha.trim()==="" || 
+        hora.trim()==="" || sintomas.trim()===""){
+            // falla la validacion
+            mostrarAlerta()
+            return 
+        }
+
+        }
+
+    // Muestra la alerta si falla la validacion
+
+    const mostrarAlerta =()=>{
+
+        Alert.alert(
+            "Error", // titulo
+            "Todos los campos son Obligatorios",// mensaje
+            [{
+                text :"OK"//arreglo de Botones
+            }]
+        )
+
     }
 
 
     return (
         <>
-            <View style={styles.formulario}>
+            <ScrollView style={styles.formulario}>
                 <View>
                     <Text style={styles.label}>Paciente:</Text>
                     <TextInput 
@@ -131,10 +156,10 @@ const Formulario =()=>{
                 </View>
                 <View>
                 <TouchableHighlight onPress={()=>crearNuevaCita()} style={styles.btnSubmit}>
-                    <Text style={styles.textoSubmit}>Crear Nueva Cita &times;</Text>
+                    <Text style={styles.textoSubmit}>Crear Nueva Cita</Text>
                 </TouchableHighlight>
             </View>
-            </View>
+            </ScrollView>
         </>
     )
 }
@@ -143,15 +168,14 @@ const styles = StyleSheet.create ({
 
     formulario :{
         backgroundColor :"#FFF",
-        paddingHorizontal :10,
-        paddingVertical :5,
-        marginHorizontal : "2,5%"
+        paddingHorizontal :20,
+        paddingVertical :10,
     },
 
     label :{
         fontWeight :"bold",
-        fontSize : 14,
-        marginTop : 10
+        fontSize : 18,
+        marginTop : 20
     },
     input :{
         marginTop :10,
