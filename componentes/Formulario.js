@@ -1,14 +1,96 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 const Formulario =()=>{
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+      setDatePickerVisibility(true);
+    };
+  
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+  
+    const confirmarFecha = (date) => {
+      console.warn("A date has been picked: ", date);
+      hideDatePicker();
+    };
+
+    // Muestra u oculta el Time Picker
+
+    const showTimePicker = () => {
+        setTimePickerVisibility(true);
+      };
+    
+      const hideTimePicker = () => {
+        setTimePickerVisibility(false);
+      };
+
+      const confirmarHora = (date) => {
+        console.warn("A date has been picked: ", date);
+        hideTimePicker();
+      };
+
+
+
     return (
         <>
             <View style={styles.formulario}>
                 <View>
                     <Text style={styles.label}>Paciente:</Text>
-                    <TextInput style={styles.input} 
+                    <TextInput 
+                        style={styles.input}
+                        onChangeText ={(texto)=> console.log(texto)} 
+
+                    />
+                </View>
+
+                <View>
+                    <Text style={styles.label}>Dueño:</Text>
+                    <TextInput 
+                        style={styles.input}
+                        onChangeText ={(texto)=> console.log(texto)} 
+
+                    />
+                </View>
+                <View>
+                    <Text style={styles.label}>Telefono Contacto:</Text>
+                    <TextInput 
+                        style={styles.input}
+                        onChangeText ={(texto)=> console.log(texto)} 
+                        keyboardType="numeric"
+
+                    />
+                </View>
+                <View>
+                        <Button title="Seleccionar Fecha" onPress={showDatePicker} />
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onConfirm={confirmarFecha}
+                            onCancel={hideDatePicker}
+                        />
+                </View>
+                <View>
+                        <Button title="Seleccionar Hora" onPress={showTimePicker} />
+                        <DateTimePickerModal
+                            isVisible={isTimePickerVisible}
+                            mode="time"
+                            onConfirm={confirmarHora}
+                            onCancel={hideTimePicker}
+                        />
+                </View>
+                <View>
+                    <Text style={styles.label}>Sintomas:</Text>
+                    <TextInput
+                        multiline 
+                        style={styles.input}
+                        onChangeText ={(texto)=> console.log(texto)} 
 
                     />
                 </View>
