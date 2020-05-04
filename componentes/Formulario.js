@@ -1,12 +1,19 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput,Button, TouchableHighlight } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 const Formulario =()=>{
 
+    const [paciente,guardarPaciente] = useState("")
+    const [propietario,guardarPropietario] = useState("")
+    const [telefono,guardarTelefono] = useState("")
+  
+
     const [fecha,guardarFecha] = useState("")
     const [hora, guardarHora] = useState("")
+
+    const [sintomas,guardarSintomas] = useState("")
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -41,7 +48,11 @@ const Formulario =()=>{
         guardarHora(hora.toLocaleString("en-US",opciones))
         hideTimePicker();
       };
+      // creamos nueva cita
 
+    const   crearNuevaCita =()=>{
+        console.log("desde crear neuva cita")
+    }
 
 
     return (
@@ -51,7 +62,7 @@ const Formulario =()=>{
                     <Text style={styles.label}>Paciente:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText ={(texto)=> console.log(texto)} 
+                        onChangeText ={(texto)=> guardarPaciente(texto)} 
 
                     />
                 </View>
@@ -60,7 +71,7 @@ const Formulario =()=>{
                     <Text style={styles.label}>Dueño:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText ={(texto)=> console.log(texto)} 
+                        onChangeText ={(texto)=> guardarPropietario(texto)} 
 
                     />
                 </View>
@@ -68,7 +79,7 @@ const Formulario =()=>{
                     <Text style={styles.label}>Telefono Contacto:</Text>
                     <TextInput 
                         style={styles.input}
-                        onChangeText ={(texto)=> console.log(texto)} 
+                        onChangeText ={(texto)=> guardarTelefono(texto)} 
                         keyboardType="numeric"
 
                     />
@@ -114,10 +125,15 @@ const Formulario =()=>{
                     <TextInput
                         multiline 
                         style={styles.input}
-                        onChangeText ={(texto)=> console.log(texto)} 
+                        onChangeText ={(texto)=> guardarSintomas(texto)} 
 
                     />
                 </View>
+                <View>
+                <TouchableHighlight onPress={()=>crearNuevaCita()} style={styles.btnSubmit}>
+                    <Text style={styles.textoSubmit}>Crear Nueva Cita &times;</Text>
+                </TouchableHighlight>
+            </View>
             </View>
         </>
     )
@@ -127,15 +143,15 @@ const styles = StyleSheet.create ({
 
     formulario :{
         backgroundColor :"#FFF",
-        paddingHorizontal :20,
-        paddingVertical :10,
+        paddingHorizontal :10,
+        paddingVertical :5,
         marginHorizontal : "2,5%"
     },
 
     label :{
         fontWeight :"bold",
-        fontSize : 18,
-        marginTop : 20
+        fontSize : 14,
+        marginTop : 10
     },
     input :{
         marginTop :10,
@@ -144,6 +160,16 @@ const styles = StyleSheet.create ({
         borderWidth : 1,
         borderStyle : "solid"
 
+    },
+    btnSubmit :{
+        padding :10,
+        backgroundColor: "#7d024e",
+        marginVertical :10
+    },
+    textoSubmit:{
+        color:"#FFF",
+        fontWeight: "bold",
+        textAlign:"center"
     }
 
 })
