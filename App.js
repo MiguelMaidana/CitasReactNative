@@ -1,21 +1,39 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, FlatList,TouchableHighlight, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, FlatList,TouchableHighlight, Platform, TouchableWithoutFeedback, Keyboard, AsyncStorage } from 'react-native';
 import Cita from "./componentes/Citas"
 import Formulario from "./componentes/Formulario"
 
+
 const App =() => {
+
+  const [citas, setCitas] = useState([])
 
   const[mostrarForm,guardarMostrarForm] = useState(false)
 
-  const [citas, setCitas] = useState([])
+  useEffect(()=>{
+    const obtenerCitasStorage = async ()=>{
+      try{
+        const citasStorage = await AsyncStorage.getItem("citas")
+        if(citasStorage){
+          setCitas(JSON.parse(citasStorage))
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+  },[])
+
 
 
   // Elimina los pascientes del state
 
   const eliminaPaciente = id =>{
-    setCitas((citasActuales)=>{
-        return citasActuales.filter(cita => cita.id !== id)
-    })
+
+    const citasFiltradas = citas.filter(cita => cita.id !== id)
+
+    setCitas(citasFiltradas)
+    guardarCitasStorage(JSON.stringify(citasFiltradas))
+  
 
   }
 
@@ -31,6 +49,19 @@ const App =() => {
     Keyboard.dismiss()
   }
 
+
+  // Almacenar las citas en storage
+  const guardarCitasStorage= async (citasJSON) =>{
+    try{
+      await AsyncStorage.setItem("citas",citasJSON)
+      console.log(citasJSON)
+
+    }catch(error){
+      console.log("Error al guardar en Storage", error)
+    }
+
+  }
+   
   return (
     <TouchableWithoutFeedback onPress={()=>cerrarTeclado()}>
           <View style={styles.contenedor}>
@@ -48,9 +79,11 @@ const App =() => {
                 <Text style={styles.titulo}>Crear nueva Cita</Text>
 
                 <Formulario
-                citas={citas}
-                setCitas={setCitas}
-                guardarMostrarForm={guardarMostrarForm}/>
+                  citas={citas}
+                  setCitas={setCitas}
+                  guardarMostrarForm={guardarMostrarForm}
+                  guardarCitasStorage={guardarCitasStorage}
+                />
 
                 </>
               ):(
